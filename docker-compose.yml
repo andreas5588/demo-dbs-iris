@@ -1,0 +1,14 @@
+services:
+  iris:
+    container_name: demo-dbs-iris
+    init: true
+    command: --check-caps false
+    build: .
+    image: andreasschneiderixdbde/demo-dbs-iris
+    restart: always
+    ports: 
+    - "127.0.0.1:1973:1972"
+    - "127.0.0.1:52774:52773"
+    - "127.0.0.1:53774:53773"      
+    volumes:
+    - ./:/opt/demodbsiris
