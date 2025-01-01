@@ -1,0 +1,10 @@
+ IRIS20242VM
+_SYSTEM
+SYS
+jdbc:IRIS://192.168.178.67:1972/USER
+com.intersystems.jdbc.IRISDriver
+
+
+
+org.duckdb.DuckDBDriver
+jdbc.duckdb

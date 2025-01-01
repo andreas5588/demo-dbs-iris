@@ -1,26 +1,26 @@
 ; this will load the utility class into USER namespace
-DO $SYSTEM.OBJ.Load("/opt/irisbuild/src/SQLTools.Utils.cls", "ck")
+DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/SQLTools.Utils.cls", "ck")
 
 ; this will create the namespaces
-DO $SYSTEM.SQL.Schema.ImportDDL("/opt/irisbuild/src/sql/01_create_db.sql","/opt/irisbuild/01_ddl_errors.log","IRIS")
+DO $SYSTEM.SQL.Schema.ImportDDL("/opt/demodbsiris/src/sql/01_create_db.sql","/opt/demodbsiris/01_ddl_errors.log","IRIS")
 
 ZN "Person_SAMPLE"
-DO $SYSTEM.OBJ.Load("/opt/irisbuild/src/PersonSample/buildsample/Build.DataSample.cls", "ck")
-DO ##class(Build.DataSample).run("/opt/irisbuild/src/PersonSample",0)
+DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/PersonSample/buildsample/Build.DataSample.cls", "ck")
+DO ##class(Build.DataSample).run("/opt/demodbsiris/src/PersonSample",0)
 
 ZN "Aviation_SAMPLE"
-DO $SYSTEM.OBJ.Load("/opt/irisbuild/src/AviationSample/buildsample/Build.AviationSample.cls", "ck")
-DO ##class(Build.AviationSample).run("/opt/irisbuild/src/AviationSample",0)
+DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/AviationSample/buildsample/Build.AviationSample.cls", "ck")
+DO ##class(Build.AviationSample).run("/opt/demodbsiris/src/AviationSample",0)
 
 ; USE DATABASE is used within the sql script file to point to the right database
 ZN "USER"
 SET variables("schema") = "Adventureworks."
-DO ##class(SQLTools.Utils).RunDDL("/opt/irisbuild/src/AdventureworksDWSample/sql/install-dw.sql",.variables,0,1)
+DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/install-dw.sql",.variables,0,1)
 DO $system.SQL.Util.SetOption("IdentityInsert", 1)
 
 ZN "USER"
-SET variables("data_dir") = "/opt/irisbuild/src/AdventureworksDWSample/data/"
-DO ##class(SQLTools.Utils).RunDDL("/opt/irisbuild/src/AdventureworksDWSample/sql/load-dw.sql",.variables,0,1)
+SET variables("data_dir") = "/opt/demodbsiris/src/AdventureworksDWSample/data/"
+DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/load-dw.sql",.variables,0,1)
 
 ZN "%SYS"
 DO ##class(Security.Users).UnExpireUserPasswords("*")
