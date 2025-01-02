@@ -10,16 +10,19 @@ The primary focus of this project is the SQL layer of InterSystems IRIS. While I
 
 The following namespaces with example databases are available:
 
-- **DuckDB_SAMPLE**: A sample database focused on DuckDB integration.
-- **Aviation_SAMPLE**: Contains demo data from the aviation industry, such as flight data or aircraft fleet information. [Original repo](https://github.com/intersystems/Samples-Aviation)
+- **Aviation_SAMPLE**: Contains demo data from the aviation industry, such as flight data or aircraft fleet information. [Original repo: Samples-Aviation](https://github.com/intersystems/Samples-Aviation)
 ![Aviation_SAMPLE](/doc/tables_aviation_namespace_sqldatalens.png)
 
-- **Person_SAMPLE**: A sample database with information about individuals and their attributes, ideal for generic database testing. [Original repo](https://github.com/intersystems/Samples-Data)
+- **Person_SAMPLE**: A sample database with information about individuals and their attributes, ideal for generic database testing. [Original repo: Samples-Data](https://github.com/intersystems/Samples-Data)
 ![Person_SAMPLE](/doc/tables_person_namespace_sqldatalens.png)
 
-- **AdventureworksDW_SAMPLE**: A data warehouse example from the AdventureWorks series, suitable for BI and reporting scenarios. [Original repo](https://github.com/bdeboe/isc-adventureworks/)
+- **AdventureworksDW_SAMPLE**: A data warehouse example from the MS AdventureWorks databases, suitable for BI and reporting scenarios. [Original repo: isc-adventureworks](https://github.com/bdeboe/isc-adventureworks/)
 ![AdventureworksDW_SAMPLE](/doc/tables_adventureworks_namespace_sqldatalens.png)
+The data (csv files) comes from the original MS repo [microsoft sql-server-samples](https://github.com/microsoft/sql-server-samples/tree/master/samples/databases/adventure-works/data-warehouse-install-script)
 
+- **DuckDB_SAMPLE**: A sample database focused on DuckDB integration. 
+The **airlines.dat file** (src\DuckDBSample) contains information on airlines Data files and comes the from: https://openflights.org/data.html
+The **yellow_tripdata_2024-01.parquet** file comes from ttps://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page. Also helpful [azure/open-datasets](https://learn.microsoft.com/en-us/azure/open-datasets/dataset-taxi-yellow?tabs=azureml-opendatasets)
 
 ## Purpose of this Repository
 
@@ -28,9 +31,6 @@ This repository was created to provide developers and database enthusiasts with 
 - **Rapid Prototyping**: Use the prebuilt databases to quickly develop applications and queries.
 - **Learning and Training**: Perfect for beginners to get familiar with the InterSystems IRIS platform and its features.
 - **Testing**: Ideal for testing scripts, integrations, and other solutions in a realistic environment.
-
-
-
 
 
 
@@ -65,8 +65,8 @@ Start the Docker container with the following command:
 docker run -d -p 1972:1972 -p 52773:52773 --name demo-dbs-iris-container andreasschneiderixdbde/demo-dbs-iris
 ```
 By default the Container ports are mapped to the same local ports. Please check the availability of the ports on your maschine first.
-
-The container is now running, and the InterSystems IRIS management interface is available at `http://localhost:52773/csp/sys/UtilHome.csp`.
+* The container is now running, and the InterSystems IRIS Management Portal is available at `http://localhost:52773/csp/sys/UtilHome.csp`.
+* Connect via JDBC with this URL: jdbc:IRIS://localhost:1972/AdventureworksDW_SAMPLE
 
 
 ```shell

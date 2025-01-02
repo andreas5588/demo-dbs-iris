@@ -22,6 +22,10 @@ ZN "USER"
 SET variables("data_dir") = "/opt/demodbsiris/src/AdventureworksDWSample/data/"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/load-dw.sql",.variables,0,1)
 
+ZN "USER"
+DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/DuckDBSample/01_init_duckdb_connections.sql",,0,1)
+
+
 ZN "%SYS"
 DO ##class(Security.Users).UnExpireUserPasswords("*")
 
