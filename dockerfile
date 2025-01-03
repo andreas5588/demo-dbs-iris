@@ -9,7 +9,7 @@ USER ${ISC_PACKAGE_MGRUSER}
 
 COPY src src
 COPY lib lib
-COPY iris.script iris.script
+COPY iris_initialisation.script iris_initialisation.script
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN iris start IRIS && iris session IRIS < iris.script && iris stop IRIS quietly
+RUN iris start IRIS && iris session IRIS < iris_initialisation.script && iris stop IRIS quietly

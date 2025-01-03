@@ -22,9 +22,22 @@ ZN "USER"
 SET variables("data_dir") = "/opt/demodbsiris/src/AdventureworksDWSample/data/"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/load-dw.sql",.variables,0,1)
 
+ZN "%SYS"
+SET gw=##class(%SQLConnection).%New()
+SET gw.Name = "ConDuckDB"
+SET gw.URL = "jdbc:duckdb:"
+SET gw.Usr = "x"
+SET gw.pwd = "x"
+SET gw.classpath = "/opt/demodbsiris/lib/duckdb_jdbc-1.1.3.jar"
+SET gw.driver = "org.duckdb.DuckDBDriver"
+SET gw.isJDBC = "1"
+SET gw.useCAST = "0"
+SET gw.useCASTCHAR = "0"
+SET gw.useCOALESCE = "1"
+Set sc=gw.%Save()
+
 ZN "USER"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/DuckDBSample/01_init_duckdb_connections.sql",,0,1)
-
 
 ZN "%SYS"
 DO ##class(Security.Users).UnExpireUserPasswords("*")
