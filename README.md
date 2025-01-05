@@ -40,11 +40,19 @@ This repository was created to provide developers and database enthusiasts with 
 - Installed [Docker](https://www.docker.com/).
 - Basic knowledge of Docker and InterSystems IRIS.
 
-## Installation and Usage
+## Installation and Usage (use the image directly from https://hub.docker.com/)
+
+### 1. pull and run
+
+```shell
+docker pull andreasschneiderixdbde/demo-dbs-iris:latest
+```
+
+## Installation and Usage (build and run from github)
 
 ### 1. Clone the Repository
 
-```bash
+```shell
 git clone https://github.com/andreas5588/demo-dbs-iris.git
 cd demo-dbs-iris
 ```
