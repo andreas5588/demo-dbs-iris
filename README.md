@@ -1,4 +1,4 @@
-![Namespaces](/doc/demo-dbs-iris.jpg)
+<img src="https://doc/demo-dbs-iris.jpg" width="300" />
 
 # Dockerized InterSystems IRIS Database with Demo Namespaces
 
