@@ -1,6 +1,9 @@
 USE DATABASE %SYS
 GO
 /*
+
+creating connections like this just doesn't work. see also https://community.intersystems.com/post/how-can-i-create-sqlgateway-connection-using-code
+
 INSERT INTO %Library.sys_SQLConnection 
     (Connection_Name,OnConnectStatement,ReverseOJ,URL,Usr,bUnicodeStream,bindTSasString,classpath,
     driver,isJDBC,needlongdatalen,noconcat,nodefq,nofnconv,nvl,properties,pwd,useCAST,useCASTCHAR,useCOALESCE,xadriver) 

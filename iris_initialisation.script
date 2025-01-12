@@ -40,6 +40,46 @@ ZN "USER"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/DuckDBSample/01_init_duckdb_connections.sql",,0,1)
 
 ZN "%SYS"
+SET gw=##class(%SQLConnection).%New()
+SET gw.Name = "ConLocal_AdventureworksDW_Sample"
+SET gw.URL = "jdbc:IRIS://localhost:1972/AdventureworksDW_Sample"
+SET gw.Usr = "_SYSTEM"
+SET gw.pwd = "SYS"
+SET gw.driver = "com.intersystems.jdbc.IRISDriver"
+SET gw.isJDBC = "1"
+SET gw.useCAST = "0"
+SET gw.useCASTCHAR = "0"
+SET gw.useCOALESCE = "1"
+Set sc=gw.%Save()
+
+SET gw=##class(%SQLConnection).%New()
+SET gw.Name = "ConLocal_Person_SAMPLE"
+SET gw.URL = "jdbc:IRIS://localhost:1972/Person_SAMPLE"
+SET gw.Usr = "_SYSTEM"
+SET gw.pwd = "SYS"
+SET gw.driver = "com.intersystems.jdbc.IRISDriver"
+SET gw.isJDBC = "1"
+SET gw.useCAST = "0"
+SET gw.useCASTCHAR = "0"
+SET gw.useCOALESCE = "1"
+Set sc=gw.%Save()
+
+SET gw=##class(%SQLConnection).%New()
+SET gw.Name = "ConLocal_Aviation_SAMPLE"
+SET gw.URL = "jdbc:IRIS://localhost:1972/Aviation_SAMPLE"
+SET gw.Usr = "_SYSTEM"
+SET gw.pwd = "SYS"
+SET gw.driver = "com.intersystems.jdbc.IRISDriver"
+SET gw.isJDBC = "1"
+SET gw.useCAST = "0"
+SET gw.useCASTCHAR = "0"
+SET gw.useCOALESCE = "1"
+Set sc=gw.%Save()
+
+; need to be run now, cause the next script create foreign tables and that will open connections
+ZN "%SYS"
 DO ##class(Security.Users).UnExpireUserPasswords("*")
 
+ZN "USER"
+DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/sql/02_create_foreign_server.sql",,0,1)
 HALT
