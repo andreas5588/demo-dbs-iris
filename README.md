@@ -1,3 +1,5 @@
+![Namespaces](/doc/demo-dbs-iris.jpg)
+
 # Dockerized InterSystems IRIS Database with Demo Namespaces
 
 This repository contains all the necessary resources to create a Docker container running an InterSystems IRIS database. The database includes several namespaces (databases) with demo data that can be used for development, testing, or training purposes.
