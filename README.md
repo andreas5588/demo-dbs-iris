@@ -23,11 +23,7 @@ The data (csv files) comes from the original MS repo [microsoft sql-server-sampl
 The **airlines.dat file** (src\DuckDBSample) contains information on airlines. The data file (csv) comes the from: https://openflights.org/data.html
 The **yellow_tripdata_2024-01.parquet** file comes from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page. Also helpful [azure/open-datasets](https://learn.microsoft.com/en-us/azure/open-datasets/dataset-taxi-yellow?tabs=azureml-opendatasets)
 
-- **FEDERATION**: This namespace is designed to facilitate the integration of data from multiple namespaces. IRIS does not support executing SQL statements that combine tables from different namespaces. To address this limitation, this federated namespace leverages the concept of creating foreign servers to include other namespaces. By defining foreign tables, it becomes possible to seamlessly combine tables across namespaces, allowing users to write SQL statements that unify data into a single query. This namespace is used to explore this feature, serves as a practical demonstration of this capability, showcasing how to explore and utilize it.
-
-![Foreign Tables list](/doc/foreign_table.png)
-
-![Foreign Tables in navigator](/doc/foreign_table_2.png.png)
+- **FEDERATION**: This namespace is designed to facilitate the integration of data from multiple namespaces. IRIS does not support executing SQL statements that combine tables from different namespaces. To address this limitation, this federated namespace leverages the concept of creating foreign servers to include other namespaces. By defining foreign tables, it becomes possible to seamlessly combine tables across namespaces, allowing users to write SQL statements that unify data into a single query. This namespace is used to explore this feature, serves as a practical demonstration of this capability, showcasing how to explore and utilize it. ![Foreign Tables list](/doc/foreign_table.png) ![Foreign Tables in navigator](/doc/foreign_table_2.png)
 
 
 In this namespace foreign servers are created to connect to the other namespaces like this:
