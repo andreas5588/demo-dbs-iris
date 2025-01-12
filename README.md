@@ -36,6 +36,7 @@ GO
 CREATE FOREIGN SERVER LocalIRIS.Aviation_SAMPLE FOREIGN DATA WRAPPER JDBC CONNECTION 'ConLocal_Aviation_SAMPLE'
 GO
 ```
+[InterSystems doc: CREATE FOREIGN SERVER](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_createserver)
 
 The necessary connections were previously created in file iris_initialisation.script. This is necessary because no functional connections can be created via SQL. See also: [create-sqlgateway-connection-using-code](https://community.intersystems.com/post/how-can-i-create-sqlgateway-connection-using-code)
 
@@ -46,6 +47,7 @@ GO
 CREATE FOREIGN TABLE Sample.Company SERVER LocalIRIS.Person_SAMPLE TABLE 'Sample.Company'
 GO
 ```
+[InterSystems doc: CREATE FOREIGN TABLE](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_createforeigntable)
 
 At this time it is not possible to integrate tables from the Aviation Namespace. It just doesnt work. All three tables produce the same error.
 
