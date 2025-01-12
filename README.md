@@ -1,4 +1,4 @@
-<img src="https://github.com/andreas5588/demo-dbs-iris/doc/demo-dbs-iris.jpg" width="300" />
+<img src="https://github.com/andreas5588/demo-dbs-iris/tree/main/doc/demo-dbs-iris.jpg" width="300" />
 
 # Dockerized InterSystems IRIS Database with Demo Namespaces
 
