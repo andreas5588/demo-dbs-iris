@@ -12,20 +12,20 @@ The primary focus of this project is the SQL layer of InterSystems IRIS. While I
 
 The following namespaces are available:
 
-- **AdventureworksDW_SAMPLE**: A data warehouse example from the MS AdventureWorks databases, suitable for BI and reporting scenarios. [Original repo: isc-adventureworks](https://github.com/bdeboe/isc-adventureworks/)
+### **AdventureworksDW_SAMPLE**: A data warehouse example from the MS AdventureWorks databases, suitable for BI and reporting scenarios. [Original repo: isc-adventureworks](https://github.com/bdeboe/isc-adventureworks/)
 ![AdventureworksDW_SAMPLE](/doc/tables_adventureworks_namespace_sqldatalens.png)
 The data (csv files) comes from the original MS repo [microsoft sql-server-samples](https://github.com/microsoft/sql-server-samples/tree/master/samples/databases/adventure-works/data-warehouse-install-script)
 
 
-- **Aviation_SAMPLE**: Contains demo data from the aviation industry, such as flight data or aircraft fleet information. [Original repo: Samples-Aviation](https://github.com/intersystems/Samples-Aviation)
+### **Aviation_SAMPLE**: Contains demo data from the aviation industry, such as flight data or aircraft fleet information. [Original repo: Samples-Aviation](https://github.com/intersystems/Samples-Aviation)
 ![Aviation_SAMPLE](/doc/tables_aviation_namespace_sqldatalens.png)
 
 
-- **DuckDB_SAMPLE**: A sample database focused on DuckDB integration. 
+### **DuckDB_SAMPLE**: A sample database focused on DuckDB integration. 
 The **airlines.dat file** (src\DuckDBSample) contains information on airlines. The data file (csv) comes the from: https://openflights.org/data.html
 The **yellow_tripdata_2024-01.parquet** file comes from https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page. Also helpful [azure/open-datasets](https://learn.microsoft.com/en-us/azure/open-datasets/dataset-taxi-yellow?tabs=azureml-opendatasets)
 
-- **FEDERATION**: This namespace is designed to facilitate the integration of data from multiple namespaces. IRIS does not support executing SQL statements that combine tables from different namespaces. To address this limitation, this federated namespace leverages the concept of creating foreign servers to include other namespaces. By defining foreign tables, it becomes possible to seamlessly combine tables across namespaces, allowing users to write SQL statements that unify data into a single query. This namespace is used to explore this feature, serves as a practical demonstration of this capability, showcasing how to explore and utilize it. ![Foreign Tables list](/doc/foreign_table.png) ![Foreign Tables in navigator](/doc/foreign_table_2.png)
+### **FEDERATION**: This namespace is designed to facilitate the integration of data from multiple namespaces. IRIS does not support executing SQL statements that combine tables from different namespaces. To address this limitation, this federated namespace leverages the concept of creating foreign servers to include other namespaces. By defining foreign tables, it becomes possible to seamlessly combine tables across namespaces, allowing users to write SQL statements that unify data into a single query. This namespace is used to explore this feature, serves as a practical demonstration of this capability, showcasing how to explore and utilize it. ![Foreign Tables list](/doc/foreign_table.png) ![Foreign Tables in navigator](/doc/foreign_table_2.png)
 
 
 In this namespace foreign servers are created to connect to the other namespaces like this:
@@ -58,28 +58,24 @@ CREATE FOREIGN TABLE Aviation.Event SERVER LocalIRIS.Aviation_SAMPLE TABLE 'Avia
 Unexpected error occurred in generated CREATE FOREIGN TABLE code:ERROR #5002: ObjectScript error: <ILLEGAL VALUE>Decode+1^%SQL.FDW.XDBC.1
 ```
 
-
-- **Person_SAMPLE**: A sample database with information about individuals and their attributes, ideal for generic database testing. [Original repo: Samples-Data](https://github.com/intersystems/Samples-Data)
+### **Person_SAMPLE**: A sample database with information about individuals and their attributes, ideal for generic database testing. [Original repo: Samples-Data](https://github.com/intersystems/Samples-Data)
 ![Person_SAMPLE](/doc/tables_person_namespace_sqldatalens.png)
 
 
-
-- **DATATYPE_SAMPLE**: Test Database for Metadata Inconsistency Scenarios
+### **DATATYPE_SAMPLE**: Test Database for Metadata Inconsistency Scenarios
 
 This sample database is designed to analyze error scenarios in which column values do not conform to the data types and constraints defined in the metadata. The goal is to understand and evaluate the behavior of the database and associated drivers (JDBC, ODBC, .NET) in such cases.
-
-## Background
 
 When tables are created and modified exclusively via SQL, inconsistencies between data and metadata should be practically impossible. Even when accessing the database through object-relational layer, proper validation is expected to enforce metadata compliance.
 
 However, inconsistencies like those demonstrated here can occur when applications used direct **Global Access**, potentially bypassing built-in protections such as type checks or constraint enforcement. This is especially relevant in legacy systems.
 
-## Structure of the Test Database
+Structure of the Test Database
 
 - **Employee** – originally created via SQL and populated with 100 valid records
 - **EmployeeOriginal** – created via `CREATE TABLE ... AS SELECT ...` from `Employee`, serves as a baseline for comparison during testing
 
-## Intentionally Introduced Inconsistencies in `Employee`
+#### Intentionally Introduced Inconsistencies in `Employee`
 
 - **DOB (`DATE`)**:  
   Rows with `PK IN (101, 180–185)` were populated with invalid date values.
@@ -93,7 +89,7 @@ However, inconsistencies like those demonstrated here can occur when application
 - **SSN (`VARCHAR(5) NOT NULL`)**:  
   In the row with `PK = 199`, the value was set to `NULL`, violating the `NOT NULL` constraint.
 
-![DATATYPE_SAMPLE](/doc/doc/DATATYPE_SAMPLE.png)
+![DATATYPE_SAMPLE](/doc/DATATYPE_SAMPLE.png)
 
 
 ## Purpose of this Repository
