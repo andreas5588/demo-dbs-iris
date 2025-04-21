@@ -1,44 +1,45 @@
 ; this will load the utility class into USER namespace
 DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/SQLTools.Utils.cls", "ck")
-
+;
 ; this will create the namespaces
 DO $SYSTEM.SQL.Schema.ImportDDL("/opt/demodbsiris/src/sql/01_create_db.sql","/opt/demodbsiris/01_ddl_errors.log","IRIS")
-
+;
 ZN "Person_SAMPLE"
 DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/PersonSample/buildsample/Build.DataSample.cls", "ck")
 DO ##class(Build.DataSample).run("/opt/demodbsiris/src/PersonSample",0)
-
+;
 ZN "Aviation_SAMPLE"
 DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/AviationSample/buildsample/Build.AviationSample.cls", "ck")
 DO ##class(Build.AviationSample).run("/opt/demodbsiris/src/AviationSample",0)
-
+;
 ; USE DATABASE is used within the sql script file to point to the right database
 ZN "USER"
 SET variables("schema") = "Adventureworks."
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/install-dw.sql",.variables,0,1)
 DO $system.SQL.Util.SetOption("IdentityInsert", 1)
-
+;
 ZN "USER"
 SET variables("data_dir") = "/opt/demodbsiris/src/AdventureworksDWSample/data/"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/AdventureworksDWSample/sql/load-dw.sql",.variables,0,1)
-
+;
+; config the federation namespace
 ZN "%SYS"
 SET gw=##class(%SQLConnection).%New()
 SET gw.Name = "ConDuckDB"
 SET gw.URL = "jdbc:duckdb:"
 SET gw.Usr = "x"
 SET gw.pwd = "x"
-SET gw.classpath = "/opt/demodbsiris/lib/duckdb_jdbc-1.1.3.jar"
+SET gw.classpath = "/opt/demodbsiris/lib/duckdb_jdbc-1.2.2.0.jar"
 SET gw.driver = "org.duckdb.DuckDBDriver"
 SET gw.isJDBC = "1"
 SET gw.useCAST = "0"
 SET gw.useCASTCHAR = "0"
 SET gw.useCOALESCE = "1"
 Set sc=gw.%Save()
-
+;
 ZN "USER"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/DuckDBSample/01_init_duckdb_connections.sql",,0,1)
-
+;
 ZN "%SYS"
 SET gw=##class(%SQLConnection).%New()
 SET gw.Name = "ConLocal_AdventureworksDW_Sample"
@@ -51,7 +52,7 @@ SET gw.useCAST = "0"
 SET gw.useCASTCHAR = "0"
 SET gw.useCOALESCE = "1"
 Set sc=gw.%Save()
-
+;
 SET gw=##class(%SQLConnection).%New()
 SET gw.Name = "ConLocal_Person_SAMPLE"
 SET gw.URL = "jdbc:IRIS://localhost:1972/Person_SAMPLE"
@@ -63,7 +64,7 @@ SET gw.useCAST = "0"
 SET gw.useCASTCHAR = "0"
 SET gw.useCOALESCE = "1"
 Set sc=gw.%Save()
-
+;
 SET gw=##class(%SQLConnection).%New()
 SET gw.Name = "ConLocal_Aviation_SAMPLE"
 SET gw.URL = "jdbc:IRIS://localhost:1972/Aviation_SAMPLE"
@@ -75,11 +76,18 @@ SET gw.useCAST = "0"
 SET gw.useCASTCHAR = "0"
 SET gw.useCOALESCE = "1"
 Set sc=gw.%Save()
-
+;
 ; need to be run now, cause the next script create foreign tables and that will open connections
 ZN "%SYS"
 DO ##class(Security.Users).UnExpireUserPasswords("*")
-
+;
 ZN "USER"
 DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/sql/02_create_foreign_server.sql",,0,1)
+;
+ZN "USER"
+DO ##class(SQLTools.Utils).RunDDL("/opt/demodbsiris/src/DataTypeSample/ddl/01_create_db_model.sql",,0,1)
+ZN "DataType_SAMPLE"
+DO $SYSTEM.OBJ.Load("/opt/demodbsiris/src/DataTypeSample/cls/DataType.Utils.cls", "ck")
+DO ##class(DataType.Utils).DamageMetadataViaGlobalWrites("DataType_SAMPLE","SQLUSER.Employee")
+;
 HALT

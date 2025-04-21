@@ -64,6 +64,38 @@ Unexpected error occurred in generated CREATE FOREIGN TABLE code:ERROR #5002: Ob
 
 
 
+- **DATATYPE_SAMPLE**: Test Database for Metadata Inconsistency Scenarios
+
+This sample database is designed to analyze error scenarios in which column values do not conform to the data types and constraints defined in the metadata. The goal is to understand and evaluate the behavior of the database and associated drivers (JDBC, ODBC, .NET) in such cases.
+
+## Background
+
+When tables are created and modified exclusively via SQL, inconsistencies between data and metadata should be practically impossible. Even when accessing the database through object-relational layer, proper validation is expected to enforce metadata compliance.
+
+However, inconsistencies like those demonstrated here can occur when applications used direct **Global Access**, potentially bypassing built-in protections such as type checks or constraint enforcement. This is especially relevant in legacy systems.
+
+## Structure of the Test Database
+
+- **Employee** – originally created via SQL and populated with 100 valid records
+- **EmployeeOriginal** – created via `CREATE TABLE ... AS SELECT ...` from `Employee`, serves as a baseline for comparison during testing
+
+## Intentionally Introduced Inconsistencies in `Employee`
+
+- **DOB (`DATE`)**:  
+  Rows with `PK IN (101, 180–185)` were populated with invalid date values.
+
+- **NAME (`VARCHAR(50)`)**:  
+  In the row with `PK = 110`, a string of 60 characters was inserted, exceeding the declared maximum length.
+
+- **AGE (`INTEGER`)**:  
+  In the row with `PK = 120`, a non-integer-compatible value was stored.
+
+- **SSN (`VARCHAR(5) NOT NULL`)**:  
+  In the row with `PK = 199`, the value was set to `NULL`, violating the `NOT NULL` constraint.
+
+![DATATYPE_SAMPLE](/doc/doc/DATATYPE_SAMPLE.png)
+
+
 ## Purpose of this Repository
 
 This repository was created to provide developers and database enthusiasts with an easy way to work with InterSystems IRIS and explore various database scenarios. The included demo data and namespaces enable:

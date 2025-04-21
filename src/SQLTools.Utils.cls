@@ -23,7 +23,7 @@ ClassMethod RunDDL(file As %String, ByRef replace As %String, ignoreErrors As %B
 		write:verbose !,"start reading..."
         while 'stream.AtEnd {
             set line = $zstrip(stream.ReadLine(),">WC")
-			//write:verbose !,"line=",line,!
+			// write:verbose !,"line=",line,!
             continue:line=""
             continue:$e(line,1,2)="--" // skip comment lines
 
@@ -80,4 +80,23 @@ ClassMethod RunDDL(file As %String, ByRef replace As %String, ignoreErrors As %B
     quit sc
 }
 
+ClassMethod DamageMetadataViaGlobalWrites(namespace As %String, tblName As %String) As %Status
+{
+	// now change data via global to corrupt the meta data
+	ZN namespace
+	Set clsName = ##class(%SQL.Manager.API).FindClassName(tblName)
+	W "ClassName for table "_tblName_" = "_clsName
+	Set cStorage = ##class(%Dictionary.CompiledStorage).%OpenId(clsName)
+	If $SYSTEM.Status.IsError(cStorage)  
+	{
+    	W "CompiledStorage NOT found"
+		Do $system.Status.DecomposeStatus(%objlasterror,.Err)
+     	Write !, Err(Err)
+	}
+	ELSE
+	{
+		W "CompiledStorage found"
+		W "DataLocation for "_clsName_" = "_cStorage.DataLocation
+	}
+}
 }
