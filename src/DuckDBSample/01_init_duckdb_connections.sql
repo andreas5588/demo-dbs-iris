@@ -8,7 +8,7 @@ INSERT INTO %Library.sys_SQLConnection
     (Connection_Name,OnConnectStatement,ReverseOJ,URL,Usr,bUnicodeStream,bindTSasString,classpath,
     driver,isJDBC,needlongdatalen,noconcat,nodefq,nofnconv,nvl,properties,pwd,useCAST,useCASTCHAR,useCOALESCE,xadriver) 
     VALUES 
-    ('ConDuckDB',NULL,0,'jdbc:duckdb:','x',0,0,'/opt/demodbsiris/lib/duckdb_jdbc-1.2.2.0.jar',
+    ('ConDuckDB',NULL,0,'jdbc:duckdb:','x',0,0,'/opt/demodbsiris/lib/duckdb_jdbc-1.4.2.0.jar',
     'org.duckdb.DuckDBDriver',1,0,NULL,0,0,0,NULL,NULL,0,0,1,NULL)
 GO
 */
